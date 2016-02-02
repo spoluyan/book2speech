@@ -9,6 +9,7 @@ java -jar book2speech.jar [-a <accessKey>] [-c <codec>] [-e <endpoint>] [-g <gen
  -a <accessKey>   Access key for Ivona API.
  -c <codec>       Preferred sound codec.
  -e <endpoint>    AWS region.
+ -en <encoding>   Specify input file encoding.
  -g <gender>      Gender of the voice.
  -h               Show help.
  -i <inputFile>   Path to input file.

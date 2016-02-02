@@ -4,5 +4,5 @@ import java.io.File;
 import java.util.List;
 
 public interface InputFileParser {
-    List<String> toPlainText(File inputFile);
+    List<String> toPlainText(File inputFile, String encoding);
 }

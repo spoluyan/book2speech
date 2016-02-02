@@ -9,6 +9,7 @@ public class TransformationOptions {
     private String name;
     private String language;
     private String gender;
+    private String encoding;
 
     public String getInputFile() {
         return inputFile;
@@ -72,5 +73,13 @@ public class TransformationOptions {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public String getEncoding() {
+        return encoding;
+    }
+
+    public void setEncoding(String encoding) {
+        this.encoding = encoding;
     }
 }

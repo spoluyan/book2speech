@@ -16,6 +16,7 @@ import pw.spn.book2speech.service.IvonaAPIClient;
 
 public class Application {
     private static final String DEFAULT_LANGUAGE = "ru-RU";
+    private static final String DEFAULT_ENCODING = "UTF-8";
 
     public static void main(String[] args) {
         ArgumentsParser parser = new ArgumentsParser();
@@ -93,6 +94,9 @@ public class Application {
             }
 
             options.setGender(gender);
+
+            String encoding = cmd.getOptionValue(CommandLineOption.ENCODING.getShortcut(), DEFAULT_ENCODING);
+            options.setEncoding(encoding);
 
             apiClient.transformTextToSpeech(options);
         } catch (IllegalArgumentException e) {

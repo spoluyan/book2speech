@@ -54,6 +54,9 @@ public class ArgumentsParser {
         options.addOption(voiceList);
         Option help = Option.builder(CommandLineOption.HELP.getShortcut()).desc("Show help.").build();
         options.addOption(help);
+        Option encoding = Option.builder(CommandLineOption.ENCODING.getShortcut()).hasArg().argName("encoding")
+                .desc("Specify input file encoding.").build();
+        options.addOption(encoding);
     }
 
     public CommandLine parseAndValidateArguments(String[] args) {

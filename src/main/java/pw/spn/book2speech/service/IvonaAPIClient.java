@@ -58,7 +58,7 @@ public class IvonaAPIClient {
 
         validateFiles(inputFile, outputDir);
 
-        List<String> content = readFile(inputFile, options.getRate());
+        List<String> content = readFile(inputFile, options.getRate(), options.getEncoding());
 
         int numbersInOutputFilesNames = calculateLengthOfNumber(content.size());
 
@@ -120,7 +120,7 @@ public class IvonaAPIClient {
         }
     }
 
-    private List<String> readFile(File inputFile, String rate) {
+    private List<String> readFile(File inputFile, String rate, String encoding) {
         int ratio = -2;
 
         while (!Rate.values()[ratio + 2].getRate().equals(rate)) {
@@ -129,7 +129,7 @@ public class IvonaAPIClient {
 
         int wordsPerFile = WORDS_PER_FILE + ratio * WORDS_PER_FILE / (Rate.values().length + 1) * 2;
 
-        List<String> lines = InputFileParserFactory.getParser(inputFile).toPlainText(inputFile);
+        List<String> lines = InputFileParserFactory.getParser(inputFile).toPlainText(inputFile, encoding);
 
         List<String> concated = new ArrayList<>();
 
