@@ -16,11 +16,9 @@ public class IvonaAPIClient {
 
     public void getVoiceList(Voice filter) {
         ListVoicesRequest allVoicesRequest = new ListVoicesRequest();
-        if (filter != null) {
-            allVoicesRequest.setVoice(filter);
-        }
+        allVoicesRequest.setVoice(filter);
         ListVoicesResult allVoicesResult = cloudClient.listVoices(allVoicesRequest);
-        System.out.println("All voices (" + allVoicesResult.getVoices().size() + "):");
+        System.out.println("Available voices (" + allVoicesResult.getVoices().size() + "):");
         allVoicesResult.getVoices().forEach(voice -> {
             System.out.println("---------");
             System.out.println("Language: " + voice.getLanguage());
