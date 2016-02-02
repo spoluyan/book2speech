@@ -22,12 +22,11 @@ import com.ivona.services.tts.model.OutputFormat;
 import com.ivona.services.tts.model.Parameters;
 import com.ivona.services.tts.model.Voice;
 
-import pw.spn.book2speech.model.Rate;
 import pw.spn.book2speech.model.TransformationOptions;
 import pw.spn.book2speech.service.parser.InputFileParserFactory;
 
 public class IvonaAPIClient {
-    private static final int WORDS_PER_FILE = 900;
+    private static final int TEXT_BLOCK_MAX_SIZE = 8192;
 
     private final IvonaSpeechCloudClient cloudClient;
 
@@ -58,7 +57,7 @@ public class IvonaAPIClient {
 
         validateFiles(inputFile, outputDir);
 
-        List<String> content = readFile(inputFile, options.getRate(), options.getEncoding());
+        List<String> content = readFile(inputFile, options.getEncoding());
 
         int numbersInOutputFilesNames = calculateLengthOfNumber(content.size());
 
@@ -120,15 +119,7 @@ public class IvonaAPIClient {
         }
     }
 
-    private List<String> readFile(File inputFile, String rate, String encoding) {
-        int ratio = -2;
-
-        while (!Rate.values()[ratio + 2].getRate().equals(rate)) {
-            ratio++;
-        }
-
-        int wordsPerFile = WORDS_PER_FILE + ratio * WORDS_PER_FILE / (Rate.values().length + 1) * 2;
-
+    private List<String> readFile(File inputFile, String encoding) {
         List<String> lines = InputFileParserFactory.getParser(inputFile).toPlainText(inputFile, encoding);
 
         List<String> concated = new ArrayList<>();
@@ -143,8 +134,8 @@ public class IvonaAPIClient {
                 return;
             }
             String newLine = concated.get(concated.size() - 1) + line;
-            int words = newLine.split("\\W+").length;
-            if (words <= wordsPerFile) {
+            int length = newLine.length();
+            if (length <= TEXT_BLOCK_MAX_SIZE) {
                 concated.remove(concated.size() - 1);
                 concated.add(newLine);
             } else {
