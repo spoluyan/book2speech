@@ -79,6 +79,16 @@ public class ArgumentsParser {
             printHelp();
             return null;
         }
+
+        if (!cmd.hasOption(CommandLineOption.VOICE_LIST.getShortcut())) {
+            if (!cmd.hasOption(CommandLineOption.INPUT_FILE.getShortcut())
+                    || !cmd.hasOption(CommandLineOption.OUTPUT_DIR.getShortcut())) {
+                System.err.println("Parameters inputFile and outputDir are required.");
+                printHelp();
+                return null;
+            }
+        }
+
         return cmd;
     }
 
