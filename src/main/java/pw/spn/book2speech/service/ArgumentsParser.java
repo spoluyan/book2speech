@@ -28,25 +28,25 @@ public class ArgumentsParser {
         Option output = Option.builder(CommandLineOption.OUTPUT_DIR.getShortcut()).hasArg().argName("outputDir")
                 .desc("Path to output directory.").build();
         options.addOption(output);
-        Option endpoint = Option.builder(CommandLineOption.ENDPOINT.getShortcut()).hasArg().argName("endpoint")
+        Option endpoint = Option.builder(CommandLineOption.ENDPOINT.getShortcut()).hasArg().argName("[eu | use | usw]")
                 .desc("AWS region.").build();
         options.addOption(endpoint);
-        Option codec = Option.builder(CommandLineOption.CODEC.getShortcut()).hasArg().argName("codec")
+        Option codec = Option.builder(CommandLineOption.CODEC.getShortcut()).hasArg().argName("[mp3 | mp4 | ogg]")
                 .desc("Preferred sound codec.").build();
         options.addOption(codec);
-        Option rate = Option.builder(CommandLineOption.RATE.getShortcut()).hasArg().argName("rate")
+        Option rate = Option.builder(CommandLineOption.RATE.getShortcut()).hasArg().argName("[xs | s | m | f | xf]")
                 .desc("The speed of speech.").build();
         options.addOption(rate);
-        Option volume = Option.builder(CommandLineOption.VOLUME.getShortcut()).hasArg().argName("volume")
-                .desc("The volume of speech.").build();
+        Option volume = Option.builder(CommandLineOption.VOLUME.getShortcut()).hasArg()
+                .argName("[xxs | xs | s | m | l | xl]").desc("The volume of speech.").build();
         options.addOption(volume);
         Option name = Option.builder(CommandLineOption.NAME.getShortcut()).hasArg().argName("name")
-                .desc("Any voice name returned by the voiceList.").build();
+                .desc("Voice name returned by the voiceList.").build();
         options.addOption(name);
         Option language = Option.builder(CommandLineOption.LANGUAGE.getShortcut()).hasArg().argName("language")
-                .desc("The language code of the voice.").build();
+                .desc("The language BCP47 code of the voice.").build();
         options.addOption(language);
-        Option gender = Option.builder(CommandLineOption.GENDER.getShortcut()).hasArg().argName("gender")
+        Option gender = Option.builder(CommandLineOption.GENDER.getShortcut()).hasArg().argName("[f | m]")
                 .desc("Gender of the voice.").build();
         options.addOption(gender);
         Option voiceList = Option.builder(CommandLineOption.VOICE_LIST.getShortcut())
