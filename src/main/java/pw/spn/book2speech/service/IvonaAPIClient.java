@@ -5,9 +5,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -22,10 +22,13 @@ import com.ivona.services.tts.model.OutputFormat;
 import com.ivona.services.tts.model.Parameters;
 import com.ivona.services.tts.model.Voice;
 
+import pw.spn.book2speech.model.Rate;
 import pw.spn.book2speech.model.TransformationOptions;
 import pw.spn.book2speech.service.parser.InputFileParserFactory;
 
 public class IvonaAPIClient {
+    private static final int WORDS_PER_FILE = 900;
+
     private final IvonaSpeechCloudClient cloudClient;
 
     public IvonaAPIClient(String accessKey, String secretKey, String endpoint) {
@@ -55,7 +58,7 @@ public class IvonaAPIClient {
 
         validateFiles(inputFile, outputDir);
 
-        List<String> content = readFile(inputFile);
+        List<String> content = readFile(inputFile, options.getRate());
 
         int numbersInOutputFilesNames = calculateLengthOfNumber(content.size());
 
@@ -117,9 +120,39 @@ public class IvonaAPIClient {
         }
     }
 
-    private List<String> readFile(File inputFile) {
-        return InputFileParserFactory.getParser(inputFile).toPlainText(inputFile).stream().filter(s -> !s.isEmpty())
-                .collect(Collectors.toList());
+    private List<String> readFile(File inputFile, String rate) {
+        int ratio = -2;
+
+        while (!Rate.values()[ratio + 2].getRate().equals(rate)) {
+            ratio++;
+        }
+
+        int wordsPerFile = WORDS_PER_FILE + ratio * WORDS_PER_FILE / (Rate.values().length + 1) * 2;
+
+        List<String> lines = InputFileParserFactory.getParser(inputFile).toPlainText(inputFile);
+
+        List<String> concated = new ArrayList<>();
+
+        IntStream.range(0, lines.size()).forEachOrdered(i -> {
+            String line = lines.get(i);
+            if (line.isEmpty()) {
+                return;
+            }
+            if (concated.size() == 0) {
+                concated.add(line);
+                return;
+            }
+            String newLine = concated.get(concated.size() - 1) + line;
+            int words = newLine.split("\\W+").length;
+            if (words <= wordsPerFile) {
+                concated.remove(concated.size() - 1);
+                concated.add(newLine);
+            } else {
+                concated.add(line);
+            }
+        });
+
+        return concated;
     }
 
     private int calculateLengthOfNumber(int number) {

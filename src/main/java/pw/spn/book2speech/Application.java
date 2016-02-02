@@ -69,7 +69,7 @@ public class Application {
             if (rate != null) {
                 rate = Rate.fromKey(rate).getRate();
             } else {
-                codec = Rate.MEDIUM.getRate();
+                rate = Rate.MEDIUM.getRate();
             }
             options.setRate(rate);
 
