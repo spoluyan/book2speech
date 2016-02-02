@@ -17,7 +17,7 @@ OPTIONS:
 	-c, --codec          Optional. Preferred sound codec. Valid values are:
 	                         "mp3" (default value) for MP3
 	                         "mp4" for MP4
-	                         "OGG" for OGG
+	                         "ogg" for OGG
 	-r, --rate           Optional. The speed of speech. Valid values are:
 	                         "xs" for extra slow (67% of default speed)
 	                         "s" for slow  (82% of default speed)
@@ -33,7 +33,9 @@ OPTIONS:
 		                     "xl" for extra loud (160% of default volume)
 	-n, --name           Optional. Any voice name returned by the voiceList action. Default is calculated.
 	-l, --language       Optional. The language code of the voice. Default is ru-RU.
-	-g, --gender         Optional. Gender of the voice. Values are "Female" (default) or "Male".
+	-g, --gender         Optional. Gender of the voice. Valid values are:
+	                         "f" (default value) for female
+	                         "m" for male
 	-vl, --voiceList     Optional. Return all available voices.
 	-h, --help           Optional. Show help.
 ```
