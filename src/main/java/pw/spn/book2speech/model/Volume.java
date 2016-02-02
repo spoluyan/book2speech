@@ -4,8 +4,8 @@ public enum Volume {
     SILENT("xxs", "silent"), XSOFT("xs", "x-soft"), SOFT("s", "soft"), MEDIUM("m", "medium"), LOUD("l",
             "loud"), XLOUD("xl", "x-loud");
 
-    private String key;
-    private String volume;
+    private final String key;
+    private final String volume;
 
     private Volume(String key, String volume) {
         this.key = key;

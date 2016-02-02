@@ -3,8 +3,8 @@ package pw.spn.book2speech.model;
 public enum Rate {
     XSLOW("xs", "x-slow"), SLOW("s", "slow"), MEDIUM("m", "medium"), FAST("f", "fast"), XFAST("xf", "x-fast");
 
-    private String key;
-    private String rate;
+    private final String key;
+    private final String rate;
 
     private Rate(String key, String rate) {
         this.key = key;

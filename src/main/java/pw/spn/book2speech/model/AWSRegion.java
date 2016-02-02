@@ -4,8 +4,8 @@ public enum AWSRegion {
     EU("eu", "tts.eu-west-1.ivonacloud.com"), USE("use", "tts.us-east-1.ivonacloud.com"), USW("usw",
             "tts.us-west-2.ivonacloud.com");
 
-    private String key;
-    private String endpoint;
+    private final String key;
+    private final String endpoint;
 
     private AWSRegion(String key, String endpoint) {
         this.key = key;

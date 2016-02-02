@@ -3,8 +3,8 @@ package pw.spn.book2speech.model;
 public enum SoundCodec {
     MP3("mp3", "MP3"), MP4("mp4", "MP4"), OGG("ogg", "OGG");
 
-    private String key;
-    private String codec;
+    private final String key;
+    private final String codec;
 
     private SoundCodec(String key, String codec) {
         this.key = key;
