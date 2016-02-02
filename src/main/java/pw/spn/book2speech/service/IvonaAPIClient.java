@@ -79,9 +79,6 @@ public class IvonaAPIClient {
             System.out.println("Processing file " + counter.incrementAndGet() + " of " + content.size());
 
             CreateSpeechRequest createSpeechRequest = new CreateSpeechRequest();
-            createSpeechRequest.setGeneralProgressListener(progressEvent -> {
-                System.out.print("=");
-            });
 
             Input input = new Input();
             input.setData(text);
@@ -95,8 +92,6 @@ public class IvonaAPIClient {
 
             CreateSpeechResult createSpeechResult = cloudClient.createSpeech(createSpeechRequest);
             writeFile(outputDir, numbersInOutputFilesNames, i, options.getCodec(), createSpeechResult.getBody());
-
-            System.out.println(" 100%");
         });
         System.out.println("Done!");
     }
