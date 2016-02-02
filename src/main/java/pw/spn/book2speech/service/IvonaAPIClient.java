@@ -27,6 +27,7 @@ import pw.spn.book2speech.service.parser.InputFileParserFactory;
 
 public class IvonaAPIClient {
     private static final int TEXT_BLOCK_MAX_SIZE = 8192;
+    private static final short SENTENCE_BREAK = 1000;
 
     private final IvonaSpeechCloudClient cloudClient;
 
@@ -72,6 +73,7 @@ public class IvonaAPIClient {
         Parameters parameters = new Parameters();
         parameters.setRate(options.getRate());
         parameters.setVolume(options.getVolume());
+        parameters.setSentenceBreak(SENTENCE_BREAK);
 
         AtomicInteger counter = new AtomicInteger(0);
         IntStream.rangeClosed(1, content.size()).forEach(i -> {
