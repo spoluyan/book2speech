@@ -92,7 +92,7 @@ public class ArgumentsParser {
         return cmd;
     }
 
-    private void printHelp() {
+    public void printHelp() {
         HelpFormatter formatter = new HelpFormatter();
         formatter.printHelp("java -jar book2speech.jar", options, true);
     }
